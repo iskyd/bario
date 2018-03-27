@@ -1,0 +1,54 @@
+#!/usr/bin/python
+
+try:
+    import os
+    import sys
+    import time
+    import random
+    import pygame
+    from pygame.locals import *
+    from objects.bario import Bario
+except ImportError as err:
+    print("Couldn't load module. {}".format(err))
+    sys.exit(2)
+
+def main():
+    pygame.init()
+    size = 1280, 720
+    screen = pygame.display.set_mode(size)
+    pygame.display.set_caption('bario')
+
+    background = pygame.Surface(screen.get_size())
+    background = background.convert()
+    background.fill((250, 250, 250))
+
+    bario = Bario()
+    bariosprite = pygame.sprite.RenderPlain(bario)
+
+    screen.blit(background, (0, 0))
+    pygame.display.flip()
+
+    # Event loop
+    while 1:
+        for event in pygame.event.get():
+            if event.type == QUIT:
+                return
+            elif event.type == KEYDOWN:
+                if event.key == K_SPACE:
+                    bario.jump("up")
+                elif event.key == K_RIGHT:
+                    bario.move("right")
+                elif event.key == K_LEFT:
+                    bario.move("left")
+            elif event.type == KEYUP:
+                if event.key == K_RIGHT:
+                    bario.stopMove("right")
+                elif event.key == K_LEFT:
+                    bario.stopMove("left")
+        bario.update()
+        screen.blit(background, (0, 0))
+        bariosprite.draw(screen)
+        pygame.display.flip()
+
+if __name__ == "__main__":
+    main()

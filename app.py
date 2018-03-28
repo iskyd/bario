@@ -14,8 +14,19 @@ except ImportError as err:
 
 def main():
     pygame.init()
-    size = 1280, 720
-    screen = pygame.display.set_mode(size)
+    size_w, size_h = 800, 600
+    if len(sys.argv) > 1:
+        try:
+            size_w = int(sys.argv[1])
+        except ValueError:
+            print("Value provided {} for size_w is not valid".format(size_w))
+    if len(sys.argv) > 2:
+        try:
+            size_h = int(sys.argv[2])
+        except ValueError:
+            print("Value provided {} for size_h is not valid".format(size_h))
+
+    screen = pygame.display.set_mode((size_w, size_h))
     pygame.display.set_caption('bario')
 
     background = pygame.Surface(screen.get_size())
@@ -35,7 +46,7 @@ def main():
                 return
             elif event.type == KEYDOWN:
                 if event.key == K_SPACE:
-                    bario.jump("up")
+                    bario.jump()
                 elif event.key == K_RIGHT:
                     bario.move("right")
                 elif event.key == K_LEFT:
@@ -49,6 +60,7 @@ def main():
         screen.blit(background, (0, 0))
         bariosprite.draw(screen)
         pygame.display.flip()
+        time.sleep(0.03)
 
 if __name__ == "__main__":
     main()

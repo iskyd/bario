@@ -31,7 +31,7 @@ class Bario(pygame.sprite.Sprite):
 
         self.rect = self.rect.move(self.width * .45, self.height * .8)
 
-        self.maxBottom = self.rect.bottom
+        self.max_bottom = self.rect.bottom
     
     def jump(self):
         self.is_jump = True
@@ -62,7 +62,7 @@ class Bario(pygame.sprite.Sprite):
             
             self.v = self.v - 1
 
-            if self.rect.bottom >= self.maxBottom and self.v < 0:
+            if self.rect.bottom >= self.max_bottom and self.v < 0:
                 self.is_jump = False
                 self.v = 4
                 f = 0

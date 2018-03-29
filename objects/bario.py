@@ -1,12 +1,18 @@
-import pygame
-from resources.image_loader import ImageLoader
-from resources.sound_player import SoundPlayer
+try:
+    import sys
+    import pygame
+    from resources.image_loader import ImageLoader
+    from resources.sound_player import SoundPlayer
+    from objects.batrang import Batrang
+except ImportError as err:
+    print("Couldn't load module. {}".format(err))
+    sys.exit(2)
 
 class Bario(pygame.sprite.Sprite):
     """ It's me! Bario! 
     Returns: Bario
-    Functions: update
-    Attributes: image, area, vector """
+    Functions: update, jump, move, stopMove, lower, batrang_attack
+    Attributes: image, rect, batrangs"""
 
     def __init__(self):
         pygame.sprite.Sprite.__init__(self)
@@ -30,6 +36,8 @@ class Bario(pygame.sprite.Sprite):
         self.rect = self.rect.move(self.width * .45, self.height * .7)
 
         self.max_bottom = self.rect.bottom
+
+        self.batrangs = pygame.sprite.Group()
     
     def jump(self):
         self.is_jump = True
@@ -68,6 +76,12 @@ class Bario(pygame.sprite.Sprite):
             self.rect = self.rect.move(0, -(h / 2))
             self.image = image
 
+    def batrang_attack(self):
+        if self.is_lower == False:
+            batrang = Batrang(self.rect)
+            batrangsprite = pygame.sprite.RenderPlain(batrang)
+            self.batrangs.add(batrangsprite)
+
     def update(self):
         x, y = 0, 0
 
@@ -88,5 +102,7 @@ class Bario(pygame.sprite.Sprite):
             x += self.speed
         if self.move_left and self.rect.left > 0:
             x -= self.speed
+        
+        self.batrangs.update()
     
         self.rect = self.rect.move(x, y)

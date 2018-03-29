@@ -53,6 +53,8 @@ def main():
                     bario.move("left")
                 elif event.key == K_DOWN:
                     bario.lower()
+                elif event.key == K_LCTRL:
+                    bario.batrang_attack()
             elif event.type == KEYUP:
                 if event.key == K_RIGHT:
                     bario.stopMove("right")
@@ -63,6 +65,7 @@ def main():
         bario.update()
         screen.blit(background, (0, 0))
         bariosprite.draw(screen)
+        bario.batrangs.draw(screen)
         pygame.display.flip()
         time.sleep(0.03)
 

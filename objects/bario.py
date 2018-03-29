@@ -1,4 +1,3 @@
-import time
 import pygame
 from resources.image_loader import ImageLoader
 from resources.sound_player import SoundPlayer
@@ -8,8 +7,6 @@ class Bario(pygame.sprite.Sprite):
     Returns: Bario
     Functions: update
     Attributes: image, area, vector """
-
-    MAX_JUMP = 2
 
     def __init__(self):
         pygame.sprite.Sprite.__init__(self)

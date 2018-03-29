@@ -51,11 +51,15 @@ def main():
                     bario.move("right")
                 elif event.key == K_LEFT:
                     bario.move("left")
+                elif event.key == K_DOWN:
+                    bario.lower()
             elif event.type == KEYUP:
                 if event.key == K_RIGHT:
                     bario.stopMove("right")
                 elif event.key == K_LEFT:
                     bario.stopMove("left")
+                elif event.key == K_DOWN:
+                    bario.up()
         bario.update()
         screen.blit(background, (0, 0))
         bariosprite.draw(screen)

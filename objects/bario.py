@@ -20,16 +20,17 @@ class Bario(pygame.sprite.Sprite):
 
         self.width, self.height = pygame.display.get_surface().get_size()
 
-        image_loader = ImageLoader()
-        self.image, self.rect = image_loader.load('bario.png')
+        self.image_loader = ImageLoader()
+        self.image, self.rect = self.image_loader.load('bario.png')
 
         self.sound_player = SoundPlayer()
 
         self.is_jump = False
+        self.is_lower = False
         self.move_right = False
         self.move_left = False
 
-        self.rect = self.rect.move(self.width * .45, self.height * .8)
+        self.rect = self.rect.move(self.width * .45, self.height * .7)
 
         self.max_bottom = self.rect.bottom
     
@@ -51,6 +52,24 @@ class Bario(pygame.sprite.Sprite):
             self.move_right = False
         elif pos == "left":
             self.move_left = False
+
+    def lower(self):
+        if self.is_jump == False:
+            __, h = self.rect.size
+            image, __ = self.image_loader.load('bario_lower.png')
+            self.is_lower = True
+            self.image = image
+            self.rect = self.rect.move(0, h / 2)
+            self.sound_player.load("lower.wav")
+            self.sound_player.play(0)
+
+    def up(self):
+        if self.is_lower == True:
+            __, h = self.rect.size
+            image, __ = self.image_loader.load('bario.png')
+            self.is_lower = False
+            self.rect = self.rect.move(0, -(h / 2))
+            self.image = image
 
     def update(self):
         x, y = 0, 0

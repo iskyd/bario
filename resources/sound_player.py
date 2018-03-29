@@ -1,7 +1,8 @@
 import os
 import pygame
+from resources.resource_loader import ResourceLoader
 
-class SoundPlayer:
+class SoundPlayer(ResourceLoader):
     """Sound resource"""
     def __init__(self):
         self.lastSoundLoadedName = False

@@ -38,8 +38,6 @@ class Batrang(pygame.sprite.Sprite):
             self.rect = self.rect.move(self.speed, 0)
     
         if self.rect.left < 0:
-            print("killed")
             self.kill()
         elif self.rect.right > self.width:
-            print("killed")
             self.kill()

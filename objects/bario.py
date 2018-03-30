@@ -81,6 +81,8 @@ class Bario(pygame.sprite.Sprite):
 
     def batrang_attack(self):
         if self.is_lower == False:
+            self.sound_player.load("batrang.mp3")
+            self.sound_player.play(0)
             batrang = Batrang(self.rect, self.direction)
             batrangsprite = pygame.sprite.RenderPlain(batrang)
             self.batrangs.add(batrangsprite)

@@ -32,6 +32,7 @@ class Bario(pygame.sprite.Sprite):
         self.is_lower = False
         self.move_right = False
         self.move_left = False
+        self.direction = "right"
 
         self.rect = self.rect.move(self.width * .45, self.height * .7)
 
@@ -48,9 +49,11 @@ class Bario(pygame.sprite.Sprite):
         if pos == "right":
             self.move_right = True
             self.move_left = False
+            self.direction = "right"
         elif pos == "left":
             self.move_right = False
             self.move_left = True
+            self.direction = "left"
 
     def stopMove(self, pos):
         if pos == "right":
@@ -78,7 +81,7 @@ class Bario(pygame.sprite.Sprite):
 
     def batrang_attack(self):
         if self.is_lower == False:
-            batrang = Batrang(self.rect)
+            batrang = Batrang(self.rect, self.direction)
             batrangsprite = pygame.sprite.RenderPlain(batrang)
             self.batrangs.add(batrangsprite)
 

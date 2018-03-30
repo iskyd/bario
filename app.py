@@ -25,7 +25,7 @@ def main():
             size_h = int(sys.argv[2])
         except ValueError:
             print("Value provided {} for size_h is not valid".format(size_h))
-
+    
     screen = pygame.display.set_mode((size_w, size_h))
     pygame.display.set_caption('bario')
 

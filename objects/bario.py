@@ -4,6 +4,7 @@ try:
     from resources.image_loader import ImageLoader
     from resources.sound_player import SoundPlayer
     from objects.batrang import Batrang
+    from objects.shield import Shield
 except ImportError as err:
     print("Couldn't load module. {}".format(err))
     sys.exit(2)
@@ -33,17 +34,22 @@ class Bario(pygame.sprite.Sprite):
         self.move_right = False
         self.move_left = False
         self.direction = "right"
-
+        self.show_shield = False
+        
         self.rect = self.rect.move(self.width * .45, self.height * .7)
-
+        
+        self.shield = Shield(self.rect)
+        self.shieldsprite = pygame.sprite.RenderPlain(self.shield)
+        
         self.max_bottom = self.rect.bottom
 
         self.batrangs = pygame.sprite.Group()
-    
+        
     def jump(self):
-        self.is_jump = True
-        self.sound_player.load("jump.wav")
-        self.sound_player.play(0)
+        if self.is_lower == False:
+            self.is_jump = True
+            self.sound_player.load("jump.wav")
+            self.sound_player.play(0)
     
     def move(self, pos):
         if pos == "right":
@@ -80,12 +86,21 @@ class Bario(pygame.sprite.Sprite):
             self.image = image
 
     def batrang_attack(self):
-        if self.is_lower == False:
+        if self.is_lower == False and self.show_shield == False:
             self.sound_player.load("batrang.wav")
             self.sound_player.play(0)
             batrang = Batrang(self.rect, self.direction)
             batrangsprite = pygame.sprite.RenderPlain(batrang)
             self.batrangs.add(batrangsprite)
+
+    def shield_defence(self, status):
+        if status == "enable":
+            self.sound_player.load("shield.wav")
+            self.sound_player.play(0)
+            self.shield.load_shield(self.rect, self.direction)
+            self.show_shield = True
+        else:
+            self.show_shield = False
 
     def update(self):
         x, y = 0, 0
@@ -111,3 +126,6 @@ class Bario(pygame.sprite.Sprite):
         self.batrangs.update()
     
         self.rect = self.rect.move(x, y)
+
+        if self.show_shield:
+            self.shieldsprite.update(self.rect)

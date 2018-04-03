@@ -7,9 +7,9 @@ except ImportError as err:
     print("Couldn't load module. {}".format(err))
     sys.exit(2)
 
-class Batrang(pygame.sprite.Sprite):
-    """ Batrang
-    Returns: Batrang
+class Batarang(pygame.sprite.Sprite):
+    """ Batarang
+    Returns: Batarang
     Functions: update
     Attributes: image, rect """
 
@@ -22,7 +22,7 @@ class Batrang(pygame.sprite.Sprite):
         self.width, __ = pygame.display.get_surface().get_size()
 
         self.image_loader = ImageLoader()
-        self.image, self.rect = self.image_loader.load('batrang.png')
+        self.image, self.rect = self.image_loader.load('batarang.png')
 
         w, h = rect.size
 

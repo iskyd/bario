@@ -3,7 +3,7 @@ try:
     import pygame
     from resources.image_loader import ImageLoader
     from resources.sound_player import SoundPlayer
-    from objects.batrang import Batrang
+    from objects.batarang import Batarang
     from objects.shield import Shield
 except ImportError as err:
     print("Couldn't load module. {}".format(err))
@@ -12,8 +12,8 @@ except ImportError as err:
 class Bario(pygame.sprite.Sprite):
     """ It's me! Bario! 
     Returns: Bario
-    Functions: update, jump, move, stopMove, lower, batrang_attack
-    Attributes: image, rect, batrangs"""
+    Functions: update, jump, move, stopMove, lower, batarang_attack
+    Attributes: image, rect, batarangs"""
 
     def __init__(self):
         pygame.sprite.Sprite.__init__(self)
@@ -43,7 +43,7 @@ class Bario(pygame.sprite.Sprite):
         
         self.max_bottom = self.rect.bottom
 
-        self.batrangs = pygame.sprite.Group()
+        self.batarangs = pygame.sprite.Group()
         
     def jump(self):
         if self.is_lower == False:
@@ -85,13 +85,13 @@ class Bario(pygame.sprite.Sprite):
             self.rect = self.rect.move(0, -(h / 2))
             self.image = image
 
-    def batrang_attack(self):
+    def batarang_attack(self):
         if self.is_lower == False and self.show_shield == False:
-            self.sound_player.load("batrang.wav")
+            self.sound_player.load("batarang.wav")
             self.sound_player.play(0)
-            batrang = Batrang(self.rect, self.direction)
-            batrangsprite = pygame.sprite.RenderPlain(batrang)
-            self.batrangs.add(batrangsprite)
+            batarang = Batarang(self.rect, self.direction)
+            batarangsprite = pygame.sprite.RenderPlain(batarang)
+            self.batarangs.add(batarangsprite)
 
     def shield_defence(self, status):
         if status == "enable":
@@ -123,7 +123,7 @@ class Bario(pygame.sprite.Sprite):
         if self.move_left and self.rect.left > 0:
             x -= self.speed
         
-        self.batrangs.update()
+        self.batarangs.update()
     
         self.rect = self.rect.move(x, y)
 

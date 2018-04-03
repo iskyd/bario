@@ -54,7 +54,7 @@ def main():
                 elif event.key == K_DOWN:
                     bario.lower()
                 elif event.key == K_LCTRL:
-                    bario.batrang_attack()
+                    bario.batarang_attack()
                 elif event.key == K_LSHIFT:
                     bario.shield_defence("enable")
             elif event.type == KEYUP:
@@ -70,7 +70,7 @@ def main():
         bario.update()
         screen.blit(background, (0, 0))
         bariosprite.draw(screen)
-        bario.batrangs.draw(screen)
+        bario.batarangs.draw(screen)
         if bario.show_shield == True:
             bario.shieldsprite.draw(screen)
         pygame.display.flip()
